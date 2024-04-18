@@ -120,10 +120,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        _args = args.split('" ')  # e.g. ['State name="Arizona"', ...]
-        _argz = _args[0].split(' ', 1)
-        _class = _argz[0]
-        _args[0] = _argz[1] if len(_argz) > 1 else None
+        _args = args.split(' ')  # e.g. ['State name="Arizona"', ...]
+        _class = _args[0]
+        del _args[0]
 
         if _class not in HBNBCommand.classes:
             print("** class doesn't exist **")
@@ -131,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
 
         new_instance = HBNBCommand.classes[_class]()
 
-        if _args[0]:
+        if len(_args) > 0:
             for i, v in enumerate(_args):
                 key, value = v.split("=")
 
