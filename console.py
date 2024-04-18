@@ -121,28 +121,32 @@ class HBNBCommand(cmd.Cmd):
             return
 
         _args = args.split('" ')  # e.g. ['State name="Arizona"', ...]
-        _class, _args[0] = _args[0].split(' ', 1)[0], _args[0].split(' ', 1)[1]
+        _argz = _args[0].split(' ', 1)
+        _class = _argz[0]
+        _args[0] = _argz[1] if len(_argz) > 1 else None
 
         if _class not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
 
         new_instance = HBNBCommand.classes[_class]()
-        for i, v in enumerate(_args):
-            key, value = v.split("=")
 
-            value = value.strip('"').replace(" ", "_")
+        if _args[0]:
+            for i, v in enumerate(_args):
+                key, value = v.split("=")
 
-            try:
-                if '.' in value:
-                    value = float(value)
-                else:
-                    value = int(value)
-            except ValueError:
-                pass
+                value = value.strip('"').replace(" ", "_")
 
-            new_instance.__dict__[key] = value
-            # setattr(new_instance, key, value)
+                try:
+                    if '.' in value:
+                        value = float(value)
+                    else:
+                        value = int(value)
+                except ValueError:
+                    pass
+
+                new_instance.__dict__[key] = value
+                # setattr(new_instance, key, value)
 
         storage.save()
         print(new_instance.id)
