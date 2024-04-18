@@ -116,35 +116,36 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        """
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+
+        _args = args.split('" ')  # e.g. ['State name="Arizona"', ...]
+        _class, _args[0] = _args[0].split(' ', 1)[0], _args[0].split(' ', 1)[1]
+
+        if _class not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
 
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
-        print(new_instance.id)
-        storage.save()
-        """
-        args_array = args.split(" ")
-        if args_array[0] not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-            return
-
-        new_instance = HBNBCommand.classes[args_array[0]]()
-        for i, v in enumerate(args_array):
-            if i == 0:
-                continue
+        new_instance = HBNBCommand.classes[_class]()
+        for i, v in enumerate(_args):
             key, value = v.split("=")
-            new_instance.__dict__[key] = value.strip('"')
+
+            value = value.strip('"').replace(" ", "_")
+
+            try:
+                if '.' in value:
+                    value = float(value)
+                else:
+                    value = int(value)
+            except ValueError:
+                pass
+
+            new_instance.__dict__[key] = value
+            # setattr(new_instance, key, value)
 
         storage.save()
         print(new_instance.id)
-        storage.save()
-        # create State name=John age=23
 
     def help_create(self):
         """ Help information for the create method """
