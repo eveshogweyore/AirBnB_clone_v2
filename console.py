@@ -134,7 +134,7 @@ class HBNBCommand(cmd.Cmd):
             for i, v in enumerate(_args):
                 key, value = v.split("=")
 
-                value = value.strip('"').replace(" ", "_")
+                value = value.strip('"').replace("_", " ")
 
                 try:
                     if '.' in value:
