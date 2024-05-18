@@ -1,5 +1,5 @@
-# web_flask/0-hello_route.py
-
+#!/usr/bin/python3
+# script that starts a Flask web application
 from flask import Flask
 
 app = Flask(__name__)
