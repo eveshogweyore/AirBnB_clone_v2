@@ -14,7 +14,7 @@ def home():
 def home_hbnb():
     return "HBNB"
 
-
+@app.route("/c/", strict_slashes=False)
 @app.route("/c/<text>", strict_slashes=False)
 def cdisplay(text):
     """ Display text with C. """
