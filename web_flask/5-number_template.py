@@ -40,7 +40,7 @@ def number(n):
 def number_template(n):
     """ Display web template if n is a number. """
     if isinstance(n, int):
-        return render_template("5-number.html")
+        return render_template("5-number.html", name=n)
 
 
 if __name__ == "__main__":
