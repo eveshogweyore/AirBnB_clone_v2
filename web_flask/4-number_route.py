@@ -31,8 +31,7 @@ def python_display(text="is_cool"):
 @app.route("/number/<int:n>", strict_slashes=False)
 def number(n):
     """ Display 'n is a number' if n is a number. """
-    if isinstance(n, int):
-        return f"{n} is a number"
+    return f"{n} is a number"
 
 
 if __name__ == "__main__":
