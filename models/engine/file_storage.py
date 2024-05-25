@@ -60,6 +60,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
+        """ Delete specified instance stored in file. """
         get_key = ''
         if obj is not None:
             for key, value in FileStorage.__objects.items():
