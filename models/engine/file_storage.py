@@ -14,10 +14,10 @@ class FileStorage:
             return FileStorage.__objects
 
         customized_objects = {}
-        #print(f"cls.__name)__: {cls.__name__}")
+        # print(f"cls.__name)__: {cls.__name__}")
         for key, value in FileStorage.__objects.items():
             if cls.__name__ in key:
-                #print(f"key: {key}");
+                # print(f"key: {key}");
                 customized_objects[key] = value
 
         return customized_objects
@@ -46,16 +46,16 @@ class FileStorage:
         from models.review import Review
 
         classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+        }
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
 
